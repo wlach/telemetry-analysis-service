@@ -149,6 +149,9 @@ class Core(Constance, CSP, AWS, Configuration):
         'atmo.apps.KeysAppConfig',
         'atmo.users',
 
+        # Addon recommender
+        'atmo.addon_recommender',
+
         # Third party apps
         'django_rq',
         'allauth',
