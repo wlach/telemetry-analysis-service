@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AddonRecommendationsForm
+from .recommender import RecommendationManager
 
 
 @login_required
@@ -10,8 +11,10 @@ def get_client_recommendations(request):
     if request.method == 'POST':
         form = AddonRecommendationsForm(data=request.POST)
         if form.is_valid():
-            # TODO: Use addon recommender once ready
-            pass
+            # Use addon recommender.
+            value = form.clean_data['client_id']
+            recommendation_manager = RecommendationManager()
+            recommendation_manager.recommend(value, 10)
     context = {
         'form': form,
         'recommendations': recommendations
