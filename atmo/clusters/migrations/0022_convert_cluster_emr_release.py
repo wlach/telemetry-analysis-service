@@ -38,7 +38,7 @@ def revert_emr_releases(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clusters', '0020_emr_release_model'),
+        ('clusters', '0021_rename_cluster_emr_release'),
     ]
 
     operations = [
