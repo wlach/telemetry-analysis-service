@@ -25,7 +25,7 @@ def revert_emr_release_version(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('jobs', '0017_convert_spark_job_emr_release'),
+        ('jobs', '0018_convert_spark_job_emr_release copy'),
     ]
 
     operations = [

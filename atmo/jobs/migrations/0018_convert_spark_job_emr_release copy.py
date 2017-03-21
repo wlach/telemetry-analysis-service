@@ -38,21 +38,10 @@ def revert_emr_releases(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clusters', '0020_emr_release_model'),
-        ('jobs', '0016_auto_20170320_0943'),
+        ('jobs', '0017_rename_add_spark_job_emr_release'),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='sparkjob',
-            old_name='emr_release',
-            new_name='emr_release_version',
-        ),
-        migrations.AddField(
-            model_name='sparkjob',
-            name='emr_release',
-            field=models.ForeignKey(blank=True, help_text='Different AWS EMR versions have different versions of software like Hadoop, Spark, etc. See <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-whatsnew.html">what\'s new</a> in each.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='created_sparkjobs', to='clusters.EMRRelease', verbose_name='EMR release'),
-        ),
         migrations.RunPython(
             convert_emr_releases,
             revert_emr_releases,
