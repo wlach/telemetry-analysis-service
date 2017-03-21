@@ -13,7 +13,7 @@ from atmo.views import server_error
 
 
 @pytest.fixture
-def dashboard_spark_jobs(now, test_user):
+def dashboard_spark_jobs(now, test_user, emr_release):
     for x in range(10):
         identifier = 'test-spark-job-%s' % x
         job = SparkJob.objects.create(
@@ -25,9 +25,11 @@ def dashboard_spark_jobs(now, test_user):
             job_timeout=12,
             start_date=now - timedelta(hours=2, minutes=x),
             created_by=test_user,
+            emr_release=emr_release,
         )
         job.runs.create(
             scheduled_date=now - timedelta(hours=1, minutes=x),
+            emr_release_version=emr_release.version,
         )
 
 
@@ -65,7 +67,7 @@ def make_cluster(mocker, **kwargs):
 
 
 @pytest.fixture
-def dashboard_clusters(mocker, now, test_user, ssh_key):
+def dashboard_clusters(mocker, now, test_user, ssh_key, emr_release):
     for x in range(5):
         make_cluster(
             mocker=mocker,
@@ -74,6 +76,7 @@ def dashboard_clusters(mocker, now, test_user, ssh_key):
             created_by=test_user,
             most_recent_status=Cluster.STATUS_WAITING,
             ssh_key=ssh_key,
+            emr_release=emr_release,
         )
 
     for x in range(5):
@@ -83,6 +86,7 @@ def dashboard_clusters(mocker, now, test_user, ssh_key):
             jobflow_id='j-%s' % x,
             created_by=test_user,
             most_recent_status=Cluster.STATUS_TERMINATED,
+            emr_release=emr_release,
             ssh_key=ssh_key,
         )
     make_cluster(
@@ -92,6 +96,7 @@ def dashboard_clusters(mocker, now, test_user, ssh_key):
         created_by=test_user,
         most_recent_status=Cluster.STATUS_TERMINATED_WITH_ERRORS,
         ssh_key=ssh_key,
+        emr_release=emr_release,
     )
 
 

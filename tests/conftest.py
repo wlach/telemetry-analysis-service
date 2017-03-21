@@ -10,6 +10,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils import timezone
 
+from atmo.clusters.models import EMRRelease
 from atmo.clusters.provisioners import ClusterProvisioner
 from atmo.jobs.provisioners import SparkJobProvisioner
 from atmo.keys.models import SSHKey
@@ -78,6 +79,13 @@ def ssh_key(test_user, public_rsa_key_maker):
         title=uuid.uuid4().hex,
         key=public_rsa_key_maker(),
         created_by=test_user,
+    )
+
+
+@pytest.fixture
+def emr_release():
+    return EMRRelease.objects.create(
+        version='5.0.0',
     )
 
 
