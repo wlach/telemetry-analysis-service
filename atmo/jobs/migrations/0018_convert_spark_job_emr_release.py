@@ -10,7 +10,6 @@ CURRENT_EMR_RELEASES = (
     '5.0.0',
 )
 
-
 def convert_emr_releases(apps, schema_editor):
     EMRRelease = apps.get_model('clusters', 'EMRRelease')
     SparkJob = apps.get_model('jobs', 'SparkJob')
@@ -45,14 +44,5 @@ class Migration(migrations.Migration):
         migrations.RunPython(
             convert_emr_releases,
             revert_emr_releases,
-        ),
-        migrations.AlterField(
-            model_name='sparkjob',
-            name='emr_release',
-            field=models.ForeignKey(help_text='Different AWS EMR versions have different versions of software like Hadoop, Spark, etc. See <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-whatsnew.html">what\'s new</a> in each.', on_delete=django.db.models.deletion.PROTECT, related_name='created_sparkjobs', to='clusters.EMRRelease', verbose_name='EMR release'),
-        ),
-        migrations.RemoveField(
-            model_name='sparkjob',
-            name='emr_release_version',
         ),
     ]

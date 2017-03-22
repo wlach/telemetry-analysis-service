@@ -46,13 +46,4 @@ class Migration(migrations.Migration):
             convert_emr_releases,
             revert_emr_releases,
         ),
-        migrations.AlterField(
-            model_name='cluster',
-            name='emr_release',
-            field=models.ForeignKey(help_text='Different AWS EMR versions have different versions of software like Hadoop, Spark, etc. See <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-whatsnew.html">what\'s new</a> in each.', on_delete=django.db.models.deletion.PROTECT, related_name='created_clusters', to='clusters.EMRRelease', verbose_name='EMR release'),
-        ),
-        migrations.RemoveField(
-            model_name='cluster',
-            name='emr_release_version',
-        ),
     ]
