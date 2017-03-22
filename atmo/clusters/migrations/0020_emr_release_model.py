@@ -13,14 +13,12 @@ CURRENT_EMR_RELEASES = (
 def create_emr_releases(apps, schema_editor):
     EMRRelease = apps.get_model('clusters', 'EMRRelease')
 
-    EMRRelease.objects.get_or_create(
-        version='5.2.1',
-        changelog_url='https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-5.2.1/emr-release-components.html',
-    )
-    EMRRelease.objects.get_or_create(
-        version='5.0.0',
-        changelog_url='https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-5.0.0/emr-release-components.html',
-    )
+    for current_release in CURRENT_EMR_RELEASES:
+
+        EMRRelease.objects.get_or_create(
+            version=current_release,
+            changelog_url='https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-%s/emr-release-components.html' % current_release,
+        )
 
 
 def remove_emr_releases(apps, schema_editor):
