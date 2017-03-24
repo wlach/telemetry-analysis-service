@@ -31,7 +31,7 @@ def dashboard_spark_jobs(now, test_user):
         )
 
 
-def test_dashboard_jobs(client, test_user, dashboard_spark_jobs):
+def test_dashboard_jobs(client, dashboard_spark_jobs):
     dashboard_url = reverse('dashboard')
 
     response = client.get(dashboard_url, follow=True)
