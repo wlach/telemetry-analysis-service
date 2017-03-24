@@ -475,6 +475,11 @@ class Base(Core):
                     'handlers': ['console'],
                     'propagate': False,
                 },
+                'celery.task': {
+                    'level': 'DEBUG',
+                    'handlers': ['console'],
+                    'propagate': False,
+                },
                 'request.summary': {
                     'handlers': ['console'],
                     'level': 'DEBUG',
